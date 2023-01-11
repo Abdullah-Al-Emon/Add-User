@@ -1,0 +1,42 @@
+.details{
+    padding: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 400px;
+    margin: 50px auto;
+}
+
+.details h3{
+    font-weight: 500;
+    padding: 5px 0px;
+    font-size: 20px;
+}
+
+.details p{
+    font-size: 18px;
+    padding: 2px;
+}
+
+.flex{
+    display: flex;
+    gap: 9px;
+    margin: 10px 0px;
+}
+
+.btn-details{
+    cursor: pointer;
+    background-color: #5893f1;
+    color: aliceblue;
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 8px 0px;
+}
+
+@media screen and (max-width:480px) {
+    .details{
+        width: 300px;
+    }
+}
