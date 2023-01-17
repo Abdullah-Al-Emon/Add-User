@@ -6,6 +6,7 @@ import Option from "./Option";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../addUserSlice";
 import Input from "./Input";
+import ErrorMessage from "./ErrorMessage";
 
 
 const validate = values =>
@@ -87,9 +88,9 @@ export default function Modal({ toggleModal, setModal, modal })
                 <h2>Hello User</h2>
                 <form className="form" onSubmit={formik.handleSubmit}>
                     <Input formik={formik} common_name={"first_name"} title={'First Name'}></Input>
-                    {formik.errors.first_name && formik.touched.first_name ? <div className="errors">{formik.errors.first_name}</div> : null}
+                    {formik.errors.first_name && formik.touched.first_name ? <ErrorMessage message={formik.errors.first_name} /> : null}
                     <Input formik={formik} common_name={'last_name'} title={'Last Name'}></Input>
-                    {formik.errors.last_name && formik.touched.last_name ? <div className="errors">{formik.errors.last_name}</div> : null}
+                    {formik.errors.last_name && formik.touched.last_name ? <ErrorMessage message={formik.errors.last_name} /> : null}
                     <div>
                         <label className="input-title" htmlFor="user_type">User Type</label><br />
                         <select
@@ -106,7 +107,7 @@ export default function Modal({ toggleModal, setModal, modal })
                             <option value="Admin">Admin</option>
                         </select> <br />
                     </div>
-                    {formik.errors.user_type && formik.touched.user_type ? <div className="errors">{formik.errors.user_type}</div> : null}
+                    {formik.errors.user_type && formik.touched.user_type ? <ErrorMessage message={formik.errors.user_type} /> : null}
 
                     {
                         employee === "Employee" ?
@@ -127,7 +128,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                             state.map((st, index) => <Option key={index} common={st} />)
                                         }
                                     </select>
-                                    {formik.errors.division && formik.touched.division ? <div className="errors">{formik.errors.division}</div> : null}
+                                    {formik.errors.division && formik.touched.division ? <ErrorMessage message={formik.errors.division} /> : null}
                                 </div>
                                 <div>
                                     <label className="input-title" htmlFor="district">District</label><br />
@@ -144,7 +145,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                             cities.map((ct, index) => <Option key={index} common={ct} />)
                                         }
                                     </select>
-                                    {formik.errors.district && formik.touched.district ? <div className="errors">{formik.errors.district}</div> : null}
+                                    {formik.errors.district && formik.touched.district ? <ErrorMessage message={formik.errors.district} /> : null}
                                 </div>
                             </div>
                             :
@@ -154,9 +155,9 @@ export default function Modal({ toggleModal, setModal, modal })
                         admin === "Admin" ?
                             <div>
                                 <Input formik={formik} common_name={'division'} title={'Division'} />
-                                {formik.errors.division && formik.touched.division ? <div className="errors">{formik.errors.division}</div> : null}
+                                {formik.errors.division && formik.touched.division ? <ErrorMessage message={formik.errors.division} /> : null}
                                 <Input formik={formik} common_name={'district'} title={'District'} />
-                                {formik.errors.district && formik.touched.district ? <div className="errors">{formik.errors.district}</div> : null}
+                                {formik.errors.district && formik.touched.district ? <ErrorMessage message={formik.errors.district} /> : null}
                             </div>
                             :
                             <div></div>

@@ -17,7 +17,7 @@ export const addUser = createAsyncThunk(
                 district: values.district
             }),
         }).then((res) => res.json())
-        .then(data => window.location.reload(true))
+        .then(data => {window.location.reload(true)})
         
     }
 )
