@@ -9,6 +9,10 @@
     border-radius: 10px
 }
 
+.errors{
+    color: rgb(184, 0, 0);
+}
+
 .btn{
     cursor: pointer;
     background-color: #5893f1;

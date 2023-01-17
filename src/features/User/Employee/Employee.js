@@ -42,10 +42,8 @@ const Employee = ({ toggleState }) =>
                                     <td data-label='User Type'>{user.user_type}</td>
                                     <td data-label='Division'>{user.division}</td>
                                     <td data-label='District'>{user.district}</td>
-                                    <td>
-                                        <button className='btn-details'>
-                                            <Link to={`details/${user.id}`}>Details</Link>
-                                        </button>
+                                    <td className='btn-dt'>
+                                        <Link to={`details/${user.id}`}>Details</Link>
                                     </td>
                                 </tr>
 

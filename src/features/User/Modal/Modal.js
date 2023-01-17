@@ -5,6 +5,31 @@ import { useState } from "react";
 import Option from "./Option";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../addUserSlice";
+import Input from "./Input";
+
+
+const validate = values =>
+{
+    const errors = {};
+
+    if (!values.first_name) {
+        errors.first_name = 'Type your first name'
+    }
+
+    if (!values.last_name) {
+        errors.last_name = 'Type your last name'
+    }
+    if (!values.user_type) {
+        errors.user_type = 'select your user type'
+    }
+    if (!values.division) {
+        errors.division = 'Select your user type'
+    }
+    if (!values.district) {
+        errors.district = 'Select your user type'
+    }
+    return errors
+}
 
 
 export default function Modal({ toggleModal, setModal, modal })
@@ -15,7 +40,6 @@ export default function Modal({ toggleModal, setModal, modal })
 
     const dispatch = useDispatch();
 
-    
 
     const formik = useFormik({
         initialValues: {
@@ -27,13 +51,20 @@ export default function Modal({ toggleModal, setModal, modal })
         },
         onSubmit: values =>
         {
-            dispatch(addUser({values}))   
+            dispatch(addUser({ values }))
             setModal(!modal)
             formik.resetForm()
+            console.log(values)
+
             // alert(JSON.stringify(values, null, 2));
         },
+        validate
     });
-    if(isLoading){
+
+
+    console.log(formik.touched)
+
+    if (isLoading) {
         return <div>...Loading</div>
     }
 
@@ -55,39 +86,17 @@ export default function Modal({ toggleModal, setModal, modal })
             <div className="modal-content">
                 <h2>Hello User</h2>
                 <form className="form" onSubmit={formik.handleSubmit}>
-                    <div>
-                        <label className="input-title" htmlFor="first_name">First Name</label> <br />
-                        <input
-                            required
-                            placeholder="First Name"
-                            className="input"
-                            id="first_name"
-                            name="first_name"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.first_name}
-                        /> <br />
-                    </div>
-                    <div>
-                        <label className="input-title" htmlFor="last_name">Last Name</label> <br />
-                        <input
-                            required
-                            placeholder="Last Name"
-                            className="input"
-                            id="last_name"
-                            name="last_name"
-                            type="text"
-                            onChange={formik.handleChange}
-                            value={formik.values.last_name}
-
-                        /> <br />
-                    </div>
+                    <Input formik={formik} common_name={"first_name"} title={'First Name'}></Input>
+                    {formik.errors.first_name && formik.touched.first_name ? <div className="errors">{formik.errors.first_name}</div> : null}
+                    <Input formik={formik} common_name={'last_name'} title={'Last Name'}></Input>
+                    {formik.errors.last_name && formik.touched.last_name ? <div className="errors">{formik.errors.last_name}</div> : null}
                     <div>
                         <label className="input-title" htmlFor="user_type">User Type</label><br />
                         <select
                             required
                             className="input"
                             id="user_type"
+                            onBlur={formik.handleBlur}
                             onClick={handleUserChange}
                             onChange={formik.handleChange}
                             value={formik.values.user_type}
@@ -97,6 +106,7 @@ export default function Modal({ toggleModal, setModal, modal })
                             <option value="Admin">Admin</option>
                         </select> <br />
                     </div>
+                    {formik.errors.user_type && formik.touched.user_type ? <div className="errors">{formik.errors.user_type}</div> : null}
 
                     {
                         employee === "Employee" ?
@@ -107,15 +117,17 @@ export default function Modal({ toggleModal, setModal, modal })
                                         required
                                         className="input "
                                         id="division"
+                                        onBlur={formik.handleBlur}
                                         onChange={formik.handleChange}
                                         value={formik.values.division}
-                                        // onClick={handleChange}
+                                    // onClick={handleChange}
                                     >
                                         <option value="">Select Division</option>
                                         {
                                             state.map((st, index) => <Option key={index} common={st} />)
                                         }
                                     </select>
+                                    {formik.errors.division && formik.touched.division ? <div className="errors">{formik.errors.division}</div> : null}
                                 </div>
                                 <div>
                                     <label className="input-title" htmlFor="district">District</label><br />
@@ -123,6 +135,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                         required
                                         className="input"
                                         id="district"
+                                        onBlur={formik.handleBlur}
                                         onChange={formik.handleChange}
                                         value={formik.values.district}
                                     >
@@ -131,6 +144,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                             cities.map((ct, index) => <Option key={index} common={ct} />)
                                         }
                                     </select>
+                                    {formik.errors.district && formik.touched.district ? <div className="errors">{formik.errors.district}</div> : null}
                                 </div>
                             </div>
                             :
@@ -139,32 +153,10 @@ export default function Modal({ toggleModal, setModal, modal })
                     {
                         admin === "Admin" ?
                             <div>
-                                <div>
-                                    <label className="input-title" htmlFor="division">Division</label> <br />
-                                    <input
-                                        required
-                                        placeholder="Select Division"
-                                        className="input"
-                                        id="division"
-                                        name="division"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        value={formik.values.division}
-                                    /> <br />
-                                </div>
-                                <div>
-                                    <label className="input-title" htmlFor="district">District</label> <br />
-                                    <input
-                                        required
-                                        placeholder="Select District"
-                                        className="input"
-                                        id="district"
-                                        name="district"
-                                        type="text"
-                                        onChange={formik.handleChange}
-                                        value={formik.values.district}
-                                    /> <br />
-                                </div>
+                                <Input formik={formik} common_name={'division'} title={'Division'} />
+                                {formik.errors.division && formik.touched.division ? <div className="errors">{formik.errors.division}</div> : null}
+                                <Input formik={formik} common_name={'district'} title={'District'} />
+                                {formik.errors.district && formik.touched.district ? <div className="errors">{formik.errors.district}</div> : null}
                             </div>
                             :
                             <div></div>

@@ -17,22 +17,19 @@
     padding: 2px;
 }
 
+.up-btn-dt{
+    cursor: pointer;
+    background-color:#5893f1;
+    text-decoration: none;
+    color: aliceblue;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+
 .flex{
     display: flex;
     gap: 9px;
     margin: 10px 0px;
-}
-
-.btn-details{
-    cursor: pointer;
-    background-color: #5893f1;
-    color: aliceblue;
-    width: 100%;
-    padding: 12px 12px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 8px 0px;
 }
 
 @media screen and (max-width:480px) {

@@ -13,15 +13,15 @@ const Details = () =>
             <h3>Name: {first_name} {last_name}</h3>
             <p>User Type: {user_type}</p>
             <p>Division: {division}</p>
-            
+
             <p>District: {district}</p>
             <div className='flex'>
-                <button className='btn-details'>
-                    <FacebookShareButton url='https://lovely-mochi-3d8b3c.netlify.app/' quote='Hey share my page' hashtag="#Share my page">
+                <FacebookShareButton className='' url='https://lovely-mochi-3d8b3c.netlify.app/' quote={"Contact with Me"} hashtag="#Share-my-page">
+                    <button className='up-btn-dt'>
                         Share
-                    </FacebookShareButton>
-                </button>
-                <button className='btn-details'>
+                    </button>
+                </FacebookShareButton>
+                <button className='btn-dt'>
                     <Link to='/updateUsers' state={{ first_name, last_name, user_type, division, district, id }}>Edit</Link>
                 </button>
             </div>

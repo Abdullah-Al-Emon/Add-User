@@ -1,20 +1,10 @@
 
-
-.btn-details{
-  background-color: #5893f1;
-  color: aliceblue;
-  width: 100%;
-  cursor: pointer;
-  padding: 7px 0px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  margin: 0px 0px;
-}
-.btn-details a{
+.btn-dt a{
+  background-color:#5893f1;
   text-decoration: none;
-  background-color: #5893f1;
   color: aliceblue;
+  padding: 5px 20px;
+  border-radius: 10px;
 }
 .table{
   overflow-x: auto;
