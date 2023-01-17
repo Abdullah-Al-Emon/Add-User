@@ -21,7 +21,7 @@ const Details = () =>
                         Share
                     </button>
                 </FacebookShareButton>
-                <button className='btn-dt'>
+                <button className='up-s-btn-dt'>
                     <Link to='/updateUsers' state={{ first_name, last_name, user_type, division, district, id }}>Edit</Link>
                 </button>
             </div>

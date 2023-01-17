@@ -1,39 +1,53 @@
-.details{
+.details {
     padding: 30px;
-    border: 1px solid black;
+    border: 1px solid #000;
     border-radius: 10px;
     width: 400px;
-    margin: 50px auto;
+    margin: 50px auto
 }
 
-.details h3{
+.details h3 {
     font-weight: 500;
-    padding: 5px 0px;
-    font-size: 20px;
+    padding: 5px 0;
+    font-size: 20px
 }
 
-.details p{
+.details p {
     font-size: 18px;
-    padding: 2px;
+    padding: 2px
 }
 
-.up-btn-dt{
+.up-s-btn-dt a {
     cursor: pointer;
-    background-color:#5893f1;
+    background-color: #5893f1;
     text-decoration: none;
-    color: aliceblue;
-    padding: 5px 20px;
-    border-radius: 10px;
+    color: #f0f8ff;
+    padding: 7px 70px;
+    border-radius: 10px
 }
 
-.flex{
+.up-btn-dt {
+    cursor: pointer;
+    background-color: #5893f1;
+    text-decoration: none;
+    color: #f0f8ff;
+    padding: 7px 20px;
+    border-radius: 10px
+}
+
+.flex button {
+    width: 100%
+}
+
+.flex {
     display: flex;
+    justify-content: space-between;
     gap: 9px;
-    margin: 10px 0px;
+    margin: 10px 0
 }
 
 @media screen and (max-width:480px) {
-    .details{
-        width: 300px;
+    .details {
+        width: 300px
     }
 }
