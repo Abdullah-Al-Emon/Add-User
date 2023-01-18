@@ -1,44 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { fetchUserEmployee } from '../usersEmployeeSlice';
-import './Employee.css'
+import './Employee'
 
-const Employee = ({ toggleState }) =>
+const Employee = () =>
 {
-    const { isLoading, users, error } = useSelector((state) => state.usersEmployee)
-
-    const dispatch = useDispatch();
-
-    useEffect(() =>
-    {
-        dispatch(fetchUserEmployee())
-    }, [])
-
-    // const { data, isLoading, error } = useQuery({
-    //     queryKey: ['fetchData'],
-    //     queryFn: async () =>
-    //     {
-    //         const res = await fetch('https://60f2479f6d44f300177885e6.mockapi.io/users?user_type=employee');
-    //         const data = await res.json();
-    //         return data;
-    //     }
-    // })
+    const { data: users, isLoading, error, refetch } = useQuery({
+        queryKey: ['fetchData'],
+        queryFn: async () =>
+        {
+            const res = await fetch('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=employee');
+            const data = await res.json();
+            return data;
+        }
+    })
+    refetch()
     // console.log(data)
-
     return (
-        <div
-            className={toggleState === 1 ? "content  active-content" : "content"}
-        >
+        <div className='div'>
             <h2>Employee</h2>
-            <hr />
+            {/* <hr /> */}
             {isLoading && <span>Loading...</span>}
             {error && <span>{error.message}</span>}
-            <div className='table' style={{ overflowX: 'auto' }}>
+            <div>
                 <table>
-                    <tr>
-                        <th  >Name</th>
+                    <tr className='head'>
+                        <th >Name</th>
                         <th >User Type</th>
                         <th >Division</th>
                         <th >District</th>

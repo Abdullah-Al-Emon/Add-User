@@ -1,0 +1,30 @@
+.btn-modal {
+    /* padding: 10px 20px; */
+    /* display: block; */
+    /* margin: 70px auto 0; */
+    /* font-size: 18px;
+    cursor: pointer;
+    background-color: #5893f1;
+    color: aliceblue;
+    border-radius: 10px */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-modal button{
+    padding: 10px 20px;
+    /* display: block; */
+    /* margin: 70px auto 0; */
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #5893f1;
+    color: aliceblue;
+    border-radius: 10px
+}
+
+.tab{
+    margin: 0px 20px;
+}

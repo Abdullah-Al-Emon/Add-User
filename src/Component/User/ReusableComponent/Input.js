@@ -7,7 +7,7 @@ const Input = ({ formik, common_name, title }) =>
             <div>
                 <label className="input-title" htmlFor={common_name}>{title}</label> <br />
                 <input
-                    required
+                    // required
                     placeholder={title}
                     className="input"
                     id={common_name}

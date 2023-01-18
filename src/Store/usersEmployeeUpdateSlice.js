@@ -1,10 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const addUser = createAsyncThunk(
+export const fetchUserEmployeeUpdate = createAsyncThunk(
     "usersAdding/addUser",
     async({values}) => {
-        return fetch('https://63b5737158084a7af394adfc.mockapi.io/users',{
-            method: 'POST',
+        console.log(values.id)
+        return fetch(`https://63b5737158084a7af394adfc.mockapi.io/users/${values.id}`,{
+            method: 'PUT',
             headers: {
                 Accept: 'application/json',
                 'Content-type': 'application/json'
@@ -17,37 +18,28 @@ export const addUser = createAsyncThunk(
                 district: values.district
             }),
         }).then((res) => res.json())
-        .then(data => window.location.reload(true))
+        .then(data => console.log(data))
         
     }
 )
 
-const userAdding = createSlice({
-    name: 'usersAdding',
+const usersEmployeeUpdateSlice = createSlice({
+    name: 'usersEmployeeGet',
     initialState: {
         isLoading: false,
         users: [],
         error: null
     },
     extraReducers: (builder) =>
-    {   
-        builder.addCase(addUser.pending, (state) =>
-        {
-            state.isLoading = true;
-        })
-        builder.addCase(addUser.fulfilled, (state, action) =>
+    {
+        builder.addCase(fetchUserEmployeeUpdate.fulfilled, (state, action) =>
         {
             state.isLoading = false;
-            state.users = [action.payload];
+            state.users = state.users.map(us => us.id === action.payload.id ? action.payload : us );
+            // console.log(action.payload)
             state.error = null;
-        })
-        builder.addCase(addUser.rejected, (state, action) =>
-        {
-            state.isLoading = false;
-            state.users = [];
-            state.error = action.error.message;
         })
     }
 })
 
-export default userAdding.reducer;
+export default usersEmployeeUpdateSlice.reducer;

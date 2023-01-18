@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import "./Modal.css";
 import { State, City } from 'country-state-city'
 import { useState } from "react";
-import Option from "./Option";
+import Option from "../ReusableComponent/Option";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../addUserSlice";
-import Input from "./Input";
-import ErrorMessage from "./ErrorMessage";
+import { addUser } from "../../../Store/addUserSlice";
+import Input from "../ReusableComponent/Input";
+import ErrorMessage from "../ReusableComponent/ErrorMessage";
 
 
 const validate = values =>
@@ -35,7 +35,7 @@ const validate = values =>
 
 export default function Modal({ toggleModal, setModal, modal })
 {
-    const { isLoading, users, } = useSelector((state) => state.addingUsers)
+    const { isLoading } = useSelector((state) => state.addingUsers)
     const [employee, setEmployee] = useState('')
     const [admin, setAdmin] = useState('')
 
@@ -56,14 +56,13 @@ export default function Modal({ toggleModal, setModal, modal })
             setModal(!modal)
             formik.resetForm()
             console.log(values)
-
             // alert(JSON.stringify(values, null, 2));
         },
         validate
     });
 
 
-    console.log(formik.touched)
+    // console.log(formik.touched)
 
     if (isLoading) {
         return <div>...Loading</div>
@@ -94,7 +93,7 @@ export default function Modal({ toggleModal, setModal, modal })
                     <div>
                         <label className="input-title" htmlFor="user_type">User Type</label><br />
                         <select
-                            required
+                            // required
                             className="input"
                             id="user_type"
                             onBlur={formik.handleBlur}
@@ -115,7 +114,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                 <div>
                                     <label className="input-title" htmlFor="division">Division</label><br />
                                     <select
-                                        required
+                                        // required
                                         className="input "
                                         id="division"
                                         onBlur={formik.handleBlur}
@@ -133,7 +132,7 @@ export default function Modal({ toggleModal, setModal, modal })
                                 <div>
                                     <label className="input-title" htmlFor="district">District</label><br />
                                     <select
-                                        required
+                                        // required
                                         className="input"
                                         id="district"
                                         onBlur={formik.handleBlur}

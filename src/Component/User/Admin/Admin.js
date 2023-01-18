@@ -1,33 +1,28 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserAdmin } from '../userAdminSlice';
-import '../Employee/Employee.css'
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import './Admin.css'
 
-
-const Admin = ({ toggleState }) =>
-{
-    const { isLoading, users, error } = useSelector((state) => state.usersAdmin)
-
-    const dispatch = useDispatch();
-
-    useEffect(() =>
-    {
-        dispatch(fetchUserAdmin())
-    }, [])
-    
-    console.log(users)
-
+const Admin = () => {
+    const { data: users, isLoading, error, refetch } = useQuery({
+        queryKey: ['fetchData'],
+        queryFn: async () =>
+        {
+            const res = await fetch('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=admin');
+            const data = await res.json();
+            return data;
+        }
+    })
+    refetch()
+    // console.log(data)
     return (
-        <div
-            className={toggleState === 2 ? "content  active-content" : "content"}
-        >
+        <div className='div'>
             <h2>Admin</h2>
-            <hr />
+            {/* <hr /> */}
             {isLoading && <span>Loading...</span>}
             {error && <span>{error.message}</span>}
-            <div style={{overflowX: 'auto'}}>
+            <div>
                 <table>
-                    <tr>
+                    <tr className='head'>
                         <th>Name</th>
                         <th>User Type</th>
                         <th>Division</th>

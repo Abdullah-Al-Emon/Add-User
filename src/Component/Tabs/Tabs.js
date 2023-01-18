@@ -1,40 +1,37 @@
-import { useState } from "react";
-import Admin from "../../features/User/Admin/Admin";
-
-import Employee from "../../features/User/Employee/Employee";
+import React, { useState, useCallback } from "react";
 import "./Tabs.css";
 
-function Tabs()
-{
-    const [toggleState, setToggleState] = useState(1);
+function Tabs({ children }) {
+  const [activeTab, setActiveTab] = useState(children[0].props.label);
+  const handleActiveTab = useCallback(label => setActiveTab(label), []);
 
-    const toggleTab = (index) =>
-    {
-        setToggleState(index);
-    };
-
-    return (
-        <div className="container">
-            <div className="bloc-tabs">
-                <button
-                    className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(1)}
-                >
-                    Employee
-                </button>
-                <button
-                    className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
-                    onClick={() => toggleTab(2)}
-                >
-                    Admin
-                </button>
-            </div>
-            <div className="content-tabs">
-                <Employee toggleState={toggleState} />
-                <Admin toggleState={toggleState} />
-            </div>
-        </div>
-    );
+  const tabs = children.map(child => (
+    <button
+      onClick={e => {
+        e.preventDefault();
+        handleActiveTab(child.props.label);
+      }}
+      className={
+        child.props.label === activeTab
+          ? ["tabs__tab", "tabs__tab-active"].join(" ")
+          : "tabs__tab"
+      }
+      key={child.props.label}
+    >
+      {child.props.tabName}
+    </button>
+  ));
+  const tabContent = children.filter(child => child.props.label === activeTab);
+  return (
+    <div>
+      <div className="tabs__box">{tabs}</div>
+      <div>{tabContent}</div>
+    </div>
+  );
 }
 
-export default Tabs;
+function Tab(props) {
+  return <>{props.children}</>;
+}
+
+export { Tabs, Tab };
