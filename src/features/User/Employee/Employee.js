@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -14,6 +15,17 @@ const Employee = ({ toggleState }) =>
     {
         dispatch(fetchUserEmployee())
     }, [])
+
+    // const { data, isLoading, error } = useQuery({
+    //     queryKey: ['fetchData'],
+    //     queryFn: async () =>
+    //     {
+    //         const res = await fetch('https://60f2479f6d44f300177885e6.mockapi.io/users?user_type=employee');
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // })
+    // console.log(data)
 
     return (
         <div

@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const fetchUserAdmin = createAsyncThunk('usersAdminGet/fetchUserAdmin', async() => {
-    const res = await axios.get('https://60f2479f6d44f300177885e6.mockapi.io/users?user_type=admin');
+    const res = await axios.get('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=admin&page=1&limit=5');
     return res.data;
 }
 )
@@ -33,3 +33,4 @@ const usersAdminSlice = createSlice({
 })
 
 export default usersAdminSlice.reducer;
+  

@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const addUser = createAsyncThunk(
     "usersAdding/addUser",
     async({values}) => {
-        return fetch('https://60f2479f6d44f300177885e6.mockapi.io/users',{
+        return fetch('https://63b5737158084a7af394adfc.mockapi.io/users',{
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -17,7 +17,7 @@ export const addUser = createAsyncThunk(
                 district: values.district
             }),
         }).then((res) => res.json())
-        .then(data => {window.location.reload(true)})
+        .then(data => window.location.reload(true))
         
     }
 )

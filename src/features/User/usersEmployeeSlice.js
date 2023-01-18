@@ -3,17 +3,16 @@ import axios from "axios";
 
 export const fetchUserEmployee = createAsyncThunk('usersEmployeeGet/fetchUserEmployee', async () =>
 {
-    const res = await axios.get('https://60f2479f6d44f300177885e6.mockapi.io/users?user_type=employee');
+    const res = await axios.get('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=employee');
     return res.data;
 }
 )
-
 
 export const fetchUserEmployeeUpdate = createAsyncThunk(
     "usersAdding/addUser",
     async({values}) => {
         console.log(values.id)
-        return fetch(`https://60f2479f6d44f300177885e6.mockapi.io/users/${values.id}`,{
+        return fetch(`https://63b5737158084a7af394adfc.mockapi.io/users/${values.id}`,{
             method: 'PUT',
             headers: {
                 Accept: 'application/json',
@@ -27,7 +26,7 @@ export const fetchUserEmployeeUpdate = createAsyncThunk(
                 district: values.district
             }),
         }).then((res) => res.json())
-        .then(data => window.location.reload(true))
+        .then(data => console.log(data))
         
     }
 )

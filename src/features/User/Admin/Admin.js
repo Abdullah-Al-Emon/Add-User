@@ -14,7 +14,9 @@ const Admin = ({ toggleState }) =>
     {
         dispatch(fetchUserAdmin())
     }, [])
-    // console.log(users)
+    
+    console.log(users)
+
     return (
         <div
             className={toggleState === 2 ? "content  active-content" : "content"}

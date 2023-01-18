@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
             {
                 path: '/details/:id',
                 element: <Details/>,
-                loader: (({params}) => fetch(`https://60f2479f6d44f300177885e6.mockapi.io/users/${params.id}`))
+                loader: (({params}) => fetch(`https://63b5737158084a7af394adfc.mockapi.io/users/${params.id}`))
             },
             {
                 path: '/updateUsers',
