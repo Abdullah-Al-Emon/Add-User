@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const fetchUserAdmin = createAsyncThunk('usersAdminGet/fetchUserAdmin', async() => {
-    const res = await axios.get('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=admin&page=1&limit=5');
+    const res = await axios.get('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=admin');
     return res.data;
 }
 )
