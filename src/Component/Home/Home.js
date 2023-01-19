@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Modal from '../User/Modal/Modal';
 import { Tab, Tabs } from '../Tabs/Tabs';
-import './Home.css'
-import BulkModal from '../User/BulkModal/BulkModal';
 import AdminPagination from '../User/Admin/AdminPagination';
 import EmployeePagination from '../User/Employee/EmployeePagination';
+import BulkModal from '../BulkModal/BulkModal';
+import './Home.css'
+import Modal from '../Modal/Modal';
 
 
 

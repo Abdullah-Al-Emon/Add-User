@@ -4,7 +4,7 @@ import { State, City } from 'country-state-city'
 import { useState } from "react";
 import Option from "../ReusableComponent/Option";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../../Store/addUserSlice";
+import { addUser } from "../../Store/addUserSlice";
 import Input from "../ReusableComponent/Input";
 import ErrorMessage from "../ReusableComponent/ErrorMessage";
 

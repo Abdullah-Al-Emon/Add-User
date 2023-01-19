@@ -9,7 +9,7 @@ const EmployeePagination = () => {
 
     const getPostsPage = async (pageParam = 1) =>
     {
-        const response = await axios?.get(`https://63b5737158084a7af394adfc.mockapi.io/users?user_type=employee&page=${pageParam}&limit=7`)
+        const response = await axios?.get(`https://63b5737158084a7af394adfc.mockapi.io/users?user_type=employee&page=${pageParam}&limit=5`)
         return response.data
     }
 
