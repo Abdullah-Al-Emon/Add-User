@@ -6,6 +6,22 @@
     border-radius: 10px
 }
 
+.btn-pagination{
+    padding: 8px 10px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: #5893f1;
+    color: aliceblue;
+    border-radius: 8px
+}
+
+.pagination-div{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .div{
   margin: 10px 30px;
 }

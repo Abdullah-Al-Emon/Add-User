@@ -55,7 +55,7 @@ export default function Modal({ toggleModal, setModal, modal })
             dispatch(addUser({ values }))
             setModal(!modal)
             formik.resetForm()
-            console.log(values)
+            // console.log(values)
             // alert(JSON.stringify(values, null, 2));
         },
         validate

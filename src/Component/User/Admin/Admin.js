@@ -1,23 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import './Admin.css'
 
-const Admin = () => {
-    const { data: users, isLoading, error, refetch } = useQuery({
-        queryKey: ['fetchData'],
-        queryFn: async () =>
-        {
-            const res = await fetch('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=admin');
-            const data = await res.json();
-            return data;
-        }
-    })
-    refetch()
-    // console.log(data)
+const Admin = ({users, isLoading, error}) => {
+    
     return (
         <div className='div'>
             <h2>Admin</h2>
-            {/* <hr /> */}
             {isLoading && <span>Loading...</span>}
             {error && <span>{error.message}</span>}
             <div>

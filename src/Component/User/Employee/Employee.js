@@ -1,21 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Employee'
 
-const Employee = () =>
+const Employee = ({users, isLoading, error }) =>
 {
-    const { data: users, isLoading, error, refetch } = useQuery({
-        queryKey: ['fetchData'],
-        queryFn: async () =>
-        {
-            const res = await fetch('https://63b5737158084a7af394adfc.mockapi.io/users?user_type=employee');
-            const data = await res.json();
-            return data;
-        }
-    })
-    refetch()
-    // console.log(data)
     return (
         <div className='div'>
             <h2>Employee</h2>
