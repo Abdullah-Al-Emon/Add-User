@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import Modal from '../User/Modal/Modal';
-import Employee from '../User/Employee/Employee';
-import Admin from '../User/Admin/Admin';
 import { Tab, Tabs } from '../Tabs/Tabs';
 import './Home.css'
 import BulkModal from '../User/BulkModal/BulkModal';

@@ -19,8 +19,6 @@ const EmployeePagination = () => {
     refetch()
 
 
-    console.log(users)
-
     const content = <Employee users={users} isLoading={isLoading} error={error} />
 
     const nextPage = () => setPage(prev => prev + 1)
