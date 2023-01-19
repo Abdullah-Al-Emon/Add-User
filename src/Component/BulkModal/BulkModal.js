@@ -3,25 +3,31 @@ import React from 'react';
 import { AiFillPlusCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 import './BulkModal.css'
 
-// const validate = values =>
-// {
-//     const errors = {};
+const validate = values =>
+{
+    const errors = {};
 
-//     if (!values.first_name) {
-//         errors.first_name = 'Type your first name'
-//     }
+    if (!values.first_name) {
+        errors.first_name = 'Type your first name'
+    }
 
-//     if (!values.last_name) {
-//         errors.last_name = 'Type your last name'
-//     }
-//     if (!values.user_type) {
-//         errors.user_type = 'select your user type'
-//     }
-//     return errors
-// }
+    if (!values.last_name) {
+        errors.last_name = 'Type your last name'
+    }
+    if (!values.user_type) {
+        errors.user_type = 'select your user type'
+    }
+    return errors
+}
 
 const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
 {
+
+    const submitForm = (values) =>
+    {
+        console.log(values);
+        alert(JSON.stringify(values, null, 2));
+    };
 
     const initialValues = {
         friends: [
@@ -40,13 +46,21 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                 <h2>Bulk User</h2>
                 <Formik
                     initialValues={initialValues}
-                    onSubmit={async (values) =>
-                    {
-                        await new Promise((r) => setTimeout(r, 500));
-                        alert(JSON.stringify(values, null, 2));
-                    }}
+                    validate={validate}
+                    onSubmit={submitForm}
                 >
-                    {({ values }) => (
+                    {(formik) =>
+                    {
+                        const {
+                            values,
+                            // handleChange,
+                            // handleSubmit,
+                            // errors,
+                            // touched,
+                            // handleBlur,
+                            // isValid,
+                            // dirty
+                        } = formik;
                         <Form>
                             <FieldArray name="friends">
                                 {({ insert, remove, push }) => (
@@ -116,7 +130,7 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                             </Field>
                             <button className='btn' type="submit">Submit</button>
                         </Form>
-                    )}
+                    }}
                 </Formik>
                 <button className="close-modal" onClick={toggleBulkModal}>
                     CLOSE
