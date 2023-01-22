@@ -61,13 +61,9 @@ export default function Modal({ toggleModal, setModal, modal })
         validate
     });
 
-
-    // console.log(formik.touched)
-
     if (isLoading) {
         return <div>...Loading</div>
     }
-    // console.log(City.getCitiesOfState("BD", "13"))
 
     const state = State.getStatesOfCountry("BD")
 

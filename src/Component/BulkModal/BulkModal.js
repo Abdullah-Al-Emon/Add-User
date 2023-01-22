@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { City, State } from 'country-state-city';
 import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
+import InputField from '../ReusableComponent/InputField';
 
 const validationSchema = Yup.object().shape({
     users: Yup.array().of(
@@ -85,42 +86,8 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                     <div className='card-title'>{`Users ${index + 1}`}</div>
                                                                     <div className="card-body">
                                                                         <div className='row'>
-                                                                            <div className="from-group">
-                                                                                <label
-                                                                                    htmlFor={`users.${index}.first_name`}>
-                                                                                    First Name
-                                                                                </label> <br />
-                                                                                <Field
-                                                                                    placeholder='Type Your First Name'
-                                                                                    type='text'
-                                                                                    className='form-control'
-                                                                                    name={`users.${index}.first_name`}
-                                                                                    id={`users.${index}.first_name`}
-                                                                                /> <br />
-                                                                                <ErrorMessage
-                                                                                    component='span'
-                                                                                    className='field_error'
-                                                                                    name={`users.${index}.first_name`}
-                                                                                />
-                                                                            </div>
-                                                                            <div className="from-group">
-                                                                                <label
-                                                                                    htmlFor={`users.${index}.last_name`}>
-                                                                                    Last Name
-                                                                                </label> <br />
-                                                                                <Field
-                                                                                    placeholder="Type Your Last Name"
-                                                                                    type='text'
-                                                                                    className='form-control'
-                                                                                    name={`users.${index}.last_name`}
-                                                                                    id={`users.${index}.last_name`}
-                                                                                /> <br />
-                                                                                <ErrorMessage
-                                                                                    component='span'
-                                                                                    className='field_error'
-                                                                                    name={`users.${index}.last_name`}
-                                                                                />
-                                                                            </div>
+                                                                            <InputField common_name={`users.${index}.first_name`} title={'First Name'} />
+                                                                            <InputField common_name={`users.${index}.last_name`} title={'Last Name'} />
                                                                         </div>
                                                                         <div className="from-group">
                                                                             <label htmlFor={`users.${index}.user_type`}>User Type</label> <br />
@@ -174,42 +141,8 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                             {
                                                                                 admin === "Admin" ?
                                                                                     <div>
-                                                                                        <div className="from-group">
-                                                                                            <label
-                                                                                                htmlFor={`users.${index}.division`}>
-                                                                                                Division
-                                                                                            </label> <br />
-                                                                                            <Field
-                                                                                                placeholder='Type Your Division'
-                                                                                                type='text'
-                                                                                                className='form-control'
-                                                                                                name={`users.${index}.division`}
-                                                                                                id={`users.${index}.division`}
-                                                                                            /> <br />
-                                                                                            <ErrorMessage
-                                                                                                component='span'
-                                                                                                className='field_error'
-                                                                                                name={`users.${index}.division`}
-                                                                                            />
-                                                                                        </div>
-                                                                                        <div className="from-group">
-                                                                                            <label
-                                                                                                htmlFor={`users.${index}.district`}>
-                                                                                                District
-                                                                                            </label> <br />
-                                                                                            <Field
-                                                                                                placeholder="Type Your Division"
-                                                                                                type='text'
-                                                                                                className='form-control'
-                                                                                                name={`users.${index}.district`}
-                                                                                                id={`users.${index}.district`}
-                                                                                            /> <br />
-                                                                                            <ErrorMessage
-                                                                                                component='span'
-                                                                                                className='field_error'
-                                                                                                name={`users.${index}.district`}
-                                                                                            />
-                                                                                        </div>
+                                                                                        <InputField common_name={`users.${index}.division`} title={'Division'} />
+                                                                                        <InputField common_name={`users.${index}.district`} title={'District'} />
                                                                                     </div>
                                                                                     :
                                                                                     <div></div>

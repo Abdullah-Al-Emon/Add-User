@@ -20,7 +20,7 @@ const Home = () =>
     } else {
         document.body.classList.remove('active-modal')
     }
-    
+
 
     const [bulkModal, setBulkModal] = useState(false);
 
@@ -52,12 +52,10 @@ const Home = () =>
             <div className='tab'>
                 <Tabs>
                     <Tab label={"Employee"} tabName={"Employee"}>
-                        {/* <Employee /> */}
-                        <EmployeePagination/>
+                        <EmployeePagination />
                     </Tab>
                     <Tab label={"Admin"} tabName={"Admin"}>
-                        {/* <Admin /> */}
-                        <AdminPagination/>
+                        <AdminPagination />
                     </Tab>
                 </Tabs>
             </div>
