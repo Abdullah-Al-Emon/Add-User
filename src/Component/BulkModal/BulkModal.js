@@ -1,10 +1,9 @@
-import { Form, Field, ErrorMessage, FieldArray, Formik } from 'formik'
+import { Form, ErrorMessage, FieldArray, Formik } from 'formik'
 import React, { useState } from 'react';
 import * as Yup from 'yup';
 import { City, State } from 'country-state-city';
 import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
-import InputField from '../ReusableComponent/InputField';
 import Input from '../ReusableComponent/Input';
 
 const validationSchema = Yup.object().shape({
@@ -18,6 +17,29 @@ const validationSchema = Yup.object().shape({
         })
     )
 })
+
+// const validate = values =>
+// {
+//     const errors = {};
+
+//     if (!values.first_name) {
+//         errors.first_name = 'Type your first name'
+//     }
+
+//     if (!values.last_name) {
+//         errors.last_name = 'Type your last name'
+//     }
+//     if (!values.user_type) {
+//         errors.user_type = 'select your user type'
+//     }
+//     if (!values.division) {
+//         errors.division = 'Select your user type'
+//     }
+//     if (!values.district) {
+//         errors.district = 'Select your user type'
+//     }
+//     return errors
+// }
 
 
 const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
@@ -106,11 +128,17 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                         </div>
                                                                         <div className="from-group">
                                                                             <label htmlFor={`users.${index}.user_type`}>User Type</label> <br />
-                                                                            <Field className='form-control' onClick={handleUserChange} as="select" name={`users.${index}.user_type`}>
+                                                                            <select id={`users.${index}.user_type`}
+                                                                                onBlur={formik.handleBlur}
+                                                                                onChange={formik.handleChange}
+                                                                                value={users.user_type}
+                                                                                className='form-control'
+                                                                                onClick={handleUserChange}
+                                                                                name={`users.${index}.user_type`}>
                                                                                 <option value="">Select User Type</option>
                                                                                 <option value="Employee">Employee</option>
                                                                                 <option value="Admin">Admin</option>
-                                                                            </Field> <br />
+                                                                            </select> <br />
                                                                             <ErrorMessage
                                                                                 component='span'
                                                                                 className='field_error'
@@ -123,12 +151,18 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                     <div>
                                                                                         <div className="from-group">
                                                                                             <label htmlFor={`users.${index}.division`}>Division</label> <br />
-                                                                                            <Field as="select" className='form-control' name={`users.${index}.division`}>
+                                                                                            <select
+                                                                                                id={`users.${index}.division`}
+                                                                                                onBlur={formik.handleBlur}
+                                                                                                onChange={formik.handleChange}
+                                                                                                value={users.division}
+                                                                                                className='form-control'
+                                                                                                name={`users.${index}.division`}>
                                                                                                 <option value="">Select Your Division</option>
                                                                                                 {
                                                                                                     state.map((st, index) => <Option key={index} common={st} />)
                                                                                                 }
-                                                                                            </Field> <br />
+                                                                                            </select> <br />
                                                                                             <ErrorMessage
                                                                                                 component='span'
                                                                                                 className='field_error'
@@ -137,12 +171,18 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                         </div>
                                                                                         <div className="from-group">
                                                                                             <label htmlFor={`users.${index}.district`}>District</label> <br />
-                                                                                            <Field as="select" className='form-control' name={`users.${index}.district`}>
+                                                                                            <select
+                                                                                                className='form-control'
+                                                                                                id={`users.${index}.district`}
+                                                                                                onBlur={formik.handleBlur}
+                                                                                                onChange={formik.handleChange}
+                                                                                                value={users.district}
+                                                                                                name={`users.${index}.district`}>
                                                                                                 <option value="">Select Your District</option>
                                                                                                 {
                                                                                                     cities.map((ct, index) => <Option key={index} common={ct} />)
                                                                                                 }
-                                                                                            </Field> <br />
+                                                                                            </select> <br />
                                                                                             <ErrorMessage
                                                                                                 component='span'
                                                                                                 className='field_error'

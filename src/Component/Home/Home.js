@@ -60,7 +60,7 @@ const Home = () =>
                     </Tab>
                 </Tabs>
             </div>
-            <ExampleForm/>
+            {/* <ExampleForm/> */}
         </div>
     );
 };
