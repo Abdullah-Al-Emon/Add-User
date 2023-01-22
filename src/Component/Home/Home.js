@@ -6,8 +6,6 @@ import BulkModal from '../BulkModal/BulkModal';
 import './Home.css'
 import Modal from '../Modal/Modal';
 
-
-
 const Home = () =>
 {
     const [modal, setModal] = useState(false);

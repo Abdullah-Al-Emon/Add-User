@@ -21,7 +21,7 @@ const AdminPagination = () =>
     refetch()
 
 
-    console.log(users)
+    // console.log(users)
 
     const content = <Admin users={users} isLoading={isLoading} error={error} />
 

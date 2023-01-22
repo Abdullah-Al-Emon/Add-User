@@ -1,14 +1,16 @@
-
-.errors{
-    color: rgb(184, 0, 0);
+.card{
+    border: 1px solid #000;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 7px 0px;
 }
 
-.btn{
+.btn-submit{
     cursor: pointer;
     background-color: #5893f1;
     color: aliceblue;
     width: 100%;
-    padding: 15px 15px;
+    padding: 15px 10px;
     border-radius: 10px;
     font-size: 15px;
     font-weight: 600;
@@ -16,14 +18,13 @@
     border: none;
 }
 
-.input {
+.form-control {
     font-size: 15px;
-    /* padding: 4px ; */
     margin: 8px 0px;
     border-width: 1px;
     border: 1px solid #000;
     border-radius: 6px;
-    height: 40px;
+    height: 35px;
     width: 100%
 }
 
@@ -80,37 +81,35 @@
     border: 1px solid;
 }
 
-.secondary-plus{
-    margin-top: 20px;
-    font-size: 35px;
-    color:#5893f1;
+.plus{
+    font-size: 15px;
+    color:white;
+    background-color: #5893f1;
     cursor: pointer;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin: 6px 0px;
 }
 
-.secondary-plus:hover{
-    color:#80abf1;
-}
-
-.secondary-close{
-    margin-top: 20px;
-    font-size: 35px;
-    color:#d22a2a;
-    cursor: pointer;
-}
-
-.secondary-close:hover{
-    color:rgb(241, 73, 73);
+.plus:hover{
+    background-color:#80abf1;
+    color: white;
 }
 
 .row{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     gap: 5px;
 }
 
 .row div{
     margin: 0px 3px;
+}
+
+.field_error{
+    color: rgb(203, 32, 38);
 }
 
 @media screen and (max-width:480px) {

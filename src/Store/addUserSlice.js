@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 export const addUser = createAsyncThunk(
     "usersAdding/addUser",
     async({values}) => {
+        console.log(values)
         return fetch('https://63b5737158084a7af394adfc.mockapi.io/users',{
             method: 'POST',
             headers: {

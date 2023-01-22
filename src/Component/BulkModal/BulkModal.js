@@ -1,137 +1,251 @@
-import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik';
-import React from 'react';
-import { AiFillPlusCircle, AiOutlineCloseCircle } from 'react-icons/ai'
+import { Form, Field, ErrorMessage, FieldArray, Formik } from 'formik'
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+import { City, State } from 'country-state-city';
+import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
 
-const validate = values =>
-{
-    const errors = {};
+const validationSchema = Yup.object().shape({
+    users: Yup.array().of(
+        Yup.object().shape({
+            first_name: Yup.string().required('Type Your First Name'),
+            last_name: Yup.string().required('Type Your Last Name'),
+            user_type: Yup.string().required('Select Your User Type'),
+            division: Yup.string().required('Select Your Division'),
+            district: Yup.string().required('Select Your District'),
+        })
+    )
+})
 
-    if (!values.first_name) {
-        errors.first_name = 'Type your first name'
-    }
-
-    if (!values.last_name) {
-        errors.last_name = 'Type your last name'
-    }
-    if (!values.user_type) {
-        errors.user_type = 'select your user type'
-    }
-    return errors
-}
 
 const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
 {
 
-    const submitForm = (values) =>
-    {
-        console.log(values);
-        alert(JSON.stringify(values, null, 2));
-    };
+    const [employee, setEmployee] = useState('')
+    const [admin, setAdmin] = useState('')
 
-    const initialValues = {
-        friends: [
-            {
-                first_name: '',
-                last_name: '',
-                user_type: ''
-            },
-        ],
-    };
+    const handleSubmit = (values, { resetForm }) =>
+    {
+        values?.users?.map(vl =>
+            fetch('https://63b5737158084a7af394adfc.mockapi.io/users', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    first_name: vl.first_name,
+                    last_name: vl.last_name,
+                    user_type: vl.user_type,
+                    division: vl.division,
+                    district: vl.district
+                }),
+            }).then((res) => res.json())
+                .then(data => console.log(data))
+        )
+        setBulkModal(!bulkModal)
+        resetForm()
+    }
+    const state = State.getStatesOfCountry("BD")
+
+    const cities = City.getCitiesOfCountry("BD")
+
+
+    const handleUserChange = (e) =>
+    {
+        setEmployee(e.target.value)
+        setAdmin(e.target.value)
+    }
 
     return (
         <div className="modal">
             <div onClick={toggleBulkModal} className="overlay"></div>
             <div className="bulkModal-content">
                 <h2>Bulk User</h2>
-                <Formik
-                    initialValues={initialValues}
-                    validate={validate}
-                    onSubmit={submitForm}
-                >
-                    {(formik) =>
-                    {
-                        const {
-                            values,
-                            // handleChange,
-                            // handleSubmit,
-                            // errors,
-                            // touched,
-                            // handleBlur,
-                            // isValid,
-                            // dirty
-                        } = formik;
-                        <Form>
-                            <FieldArray name="friends">
-                                {({ insert, remove, push }) => (
-                                    <div>
-                                        {values.friends.length > 0 &&
-                                            values.friends.map((friend, index) => (
-                                                <div className="row" key={index}>
-                                                    <div className="col">
-                                                        <label htmlFor={`friends.${index}.first_name`}>First Name</label>
-                                                        <Field
-                                                            className='input'
-                                                            name={`friends.${index}.first_name`}
-                                                            placeholder="Last Name"
-                                                            type="text"
-                                                        />
-                                                        <ErrorMessage
-                                                            name={`friends.${index}.first_name`}
-                                                            component="div"
-                                                            className="field-error"
-                                                        />
-                                                    </div>
-                                                    <div className="col">
-                                                        <label htmlFor={`friends.${index}.last_name`}>Last Name</label>
-                                                        <Field
-                                                            className='input'
-                                                            name={`friends.${index}.last_name`}
-                                                            placeholder="Last Name"
-                                                            type="text"
-                                                        />
-                                                        <ErrorMessage
-                                                            name={`friends.${index}.last_name`}
-                                                            component="div"
-                                                            className="field-error"
-                                                        />
-                                                    </div>
-                                                    <div className="col">
-                                                        <AiFillPlusCircle
-                                                            type="button"
-                                                            className="secondary-plus"
-                                                            onClick={() => push({ first_name: '', last_name: '' })}>
-                                                        </AiFillPlusCircle>
-                                                    </div>
-                                                    <div className="col">
-                                                        <AiOutlineCloseCircle
-                                                            type="button"
-                                                            className="secondary-close"
-                                                            onClick={() => remove(index)}
-                                                        >
-                                                        </AiOutlineCloseCircle>
+                <div>
+                    <Formik
+                        initialValues={{
+                            users: [{ first_name: '', last_name: '', user_type: ``, division: '', district: '' }]
+                        }}
+                        validationSchema={validationSchema}
+                        onSubmit={handleSubmit}
+                    >
+                        {(formik) => (
+                            <Form>
+                                <div className="form-group">
+                                    <FieldArray name='users' render={
+                                        (arrayHelpers) =>
+                                        {
+                                            return (
+                                                <div>
+                                                    {formik.values.users.map((users, index) => (
+                                                        <div key={index}>
+                                                            <div>
+                                                                <div className='card'>
+                                                                    <div className='card-title'>{`Users ${index + 1}`}</div>
+                                                                    <div className="card-body">
+                                                                        <div className='row'>
+                                                                            <div className="from-group">
+                                                                                <label
+                                                                                    htmlFor={`users.${index}.first_name`}>
+                                                                                    First Name
+                                                                                </label> <br />
+                                                                                <Field
+                                                                                    placeholder='Type Your First Name'
+                                                                                    type='text'
+                                                                                    className='form-control'
+                                                                                    name={`users.${index}.first_name`}
+                                                                                    id={`users.${index}.first_name`}
+                                                                                /> <br />
+                                                                                <ErrorMessage
+                                                                                    component='span'
+                                                                                    className='field_error'
+                                                                                    name={`users.${index}.first_name`}
+                                                                                />
+                                                                            </div>
+                                                                            <div className="from-group">
+                                                                                <label
+                                                                                    htmlFor={`users.${index}.last_name`}>
+                                                                                    Last Name
+                                                                                </label> <br />
+                                                                                <Field
+                                                                                    placeholder="Type Your Last Name"
+                                                                                    type='text'
+                                                                                    className='form-control'
+                                                                                    name={`users.${index}.last_name`}
+                                                                                    id={`users.${index}.last_name`}
+                                                                                /> <br />
+                                                                                <ErrorMessage
+                                                                                    component='span'
+                                                                                    className='field_error'
+                                                                                    name={`users.${index}.last_name`}
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="from-group">
+                                                                            <label htmlFor={`users.${index}.user_type`}>User Type</label> <br />
+                                                                            <Field className='form-control' onClick={handleUserChange} as="select" name={`users.${index}.user_type`}>
+                                                                                <option value="">Select User Type</option>
+                                                                                <option value="Employee">Employee</option>
+                                                                                <option value="Admin">Admin</option>
+                                                                            </Field> <br />
+                                                                            <ErrorMessage
+                                                                                component='span'
+                                                                                className='field_error'
+                                                                                name={`users.${index}.user_type`}
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                employee === "Employee" ?
+                                                                                    <div>
+                                                                                        <div className="from-group">
+                                                                                            <label htmlFor={`users.${index}.division`}>Division</label> <br />
+                                                                                            <Field as="select" className='form-control' name={`users.${index}.division`}>
+                                                                                                <option value="">Select Your Division</option>
+                                                                                                {
+                                                                                                    state.map((st, index) => <Option key={index} common={st} />)
+                                                                                                }
+                                                                                            </Field> <br />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.division`}
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div className="from-group">
+                                                                                            <label htmlFor={`users.${index}.district`}>District</label> <br />
+                                                                                            <Field as="select" className='form-control' name={`users.${index}.district`}>
+                                                                                                <option value="">Select Your District</option>
+                                                                                                {
+                                                                                                    cities.map((ct, index) => <Option key={index} common={ct} />)
+                                                                                                }
+                                                                                            </Field> <br />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.district`}
+                                                                                            />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    :
+                                                                                    <div></div>
+                                                                            }
+                                                                            {
+                                                                                admin === "Admin" ?
+                                                                                    <div>
+                                                                                        <div className="from-group">
+                                                                                            <label
+                                                                                                htmlFor={`users.${index}.division`}>
+                                                                                                Division
+                                                                                            </label> <br />
+                                                                                            <Field
+                                                                                                placeholder='Type Your Division'
+                                                                                                type='text'
+                                                                                                className='form-control'
+                                                                                                name={`users.${index}.division`}
+                                                                                                id={`users.${index}.division`}
+                                                                                            /> <br />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.division`}
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div className="from-group">
+                                                                                            <label
+                                                                                                htmlFor={`users.${index}.district`}>
+                                                                                                District
+                                                                                            </label> <br />
+                                                                                            <Field
+                                                                                                placeholder="Type Your Division"
+                                                                                                type='text'
+                                                                                                className='form-control'
+                                                                                                name={`users.${index}.district`}
+                                                                                                id={`users.${index}.district`}
+                                                                                            /> <br />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.district`}
+                                                                                            />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    :
+                                                                                    <div></div>
+                                                                            }
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                    <div>
+                                                        <button
+                                                            className='plus'
+                                                            type='button'
+                                                            onClick={
+                                                                () => arrayHelpers.insert(formik.values.users.length + 1,
+                                                                    { first_name: '', last_name: '', user_type: '' }
+                                                                )}>
+                                                            + Add
+                                                        </button>
                                                     </div>
                                                 </div>
-                                            ))}
-                                        <AiFillPlusCircle
-                                            type="button"
-                                            className="secondary-plus"
-                                            onClick={() => push({ first_name: '', last_name: '' })}
-                                        >
-                                        </AiFillPlusCircle>
-                                    </div>
-                                )}
-                            </FieldArray>
-                            <label className="input-title" htmlFor="user_type">User Type</label><br />
-                            <Field className='input' name="user_type" as="select">
-                                <option value="">Select User Type</option>
-                                <option value="Employee">Employee</option>
-                                <option value="Admin">Admin</option>
-                            </Field>
-                            <button className='btn' type="submit">Submit</button>
-                        </Form>
-                    }}
-                </Formik>
+                                            )
+                                        }}
+                                    />
+                                </div>
+                                <div>
+                                    <button className='btn-submit' type='submit'>
+                                        Submit
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
                 <button className="close-modal" onClick={toggleBulkModal}>
                     CLOSE
                 </button>

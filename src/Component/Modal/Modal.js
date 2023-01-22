@@ -67,12 +67,12 @@ export default function Modal({ toggleModal, setModal, modal })
     if (isLoading) {
         return <div>...Loading</div>
     }
+    // console.log(City.getCitiesOfState("BD", "13"))
 
     const state = State.getStatesOfCountry("BD")
 
     const cities = City.getCitiesOfCountry("BD")
 
-    // console.log(City.getCitiesOfState("BD", "13"))
 
     const handleUserChange = (e) =>
     {
