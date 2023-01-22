@@ -82,9 +82,9 @@ export default function Modal({ toggleModal, setModal, modal })
             <div className="modal-content">
                 <h2>Hello User</h2>
                 <form className="form" onSubmit={formik.handleSubmit}>
-                    <Input formik={formik} common_name={"first_name"} title={'First Name'}></Input>
+                    <Input formik={formik} value={formik.values.first_name} common_name={"first_name"} title={'First Name'}></Input>
                     {formik.errors.first_name && formik.touched.first_name ? <ErrorMessage message={formik.errors.first_name} /> : null}
-                    <Input formik={formik} common_name={'last_name'} title={'Last Name'}></Input>
+                    <Input formik={formik} value={formik.values.last_name} common_name={'last_name'} title={'Last Name'}></Input>
                     {formik.errors.last_name && formik.touched.last_name ? <ErrorMessage message={formik.errors.last_name} /> : null}
                     <div>
                         <label className="input-title" htmlFor="user_type">User Type</label><br />
@@ -149,9 +149,9 @@ export default function Modal({ toggleModal, setModal, modal })
                     {
                         admin === "Admin" ?
                             <div>
-                                <Input formik={formik} common_name={'division'} title={'Division'} />
+                                <Input formik={formik} value={formik.values.division} common_name={'division'} title={'Division'} />
                                 {formik.errors.division && formik.touched.division ? <ErrorMessage message={formik.errors.division} /> : null}
-                                <Input formik={formik} common_name={'district'} title={'District'} />
+                                <Input formik={formik} value={formik.values.district} common_name={'district'} title={'District'} />
                                 {formik.errors.district && formik.touched.district ? <ErrorMessage message={formik.errors.district} /> : null}
                             </div>
                             :

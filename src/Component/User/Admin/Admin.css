@@ -16,6 +16,11 @@
     border-radius: 8px
 }
 
+.btn-pagination:disabled{
+    background-color: #4a6590;
+    color: rgb(255, 250, 250);
+}
+
 .pagination-div{
     display: flex;
     justify-content: center;

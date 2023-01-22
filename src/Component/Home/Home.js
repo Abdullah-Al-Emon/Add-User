@@ -5,6 +5,7 @@ import EmployeePagination from '../User/Employee/EmployeePagination';
 import BulkModal from '../BulkModal/BulkModal';
 import './Home.css'
 import Modal from '../Modal/Modal';
+import ExampleForm from '../ExampleForm';
 
 const Home = () =>
 {
@@ -59,6 +60,7 @@ const Home = () =>
                     </Tab>
                 </Tabs>
             </div>
+            <ExampleForm/>
         </div>
     );
 };

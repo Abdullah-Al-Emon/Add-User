@@ -5,6 +5,7 @@ import { City, State } from 'country-state-city';
 import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
 import InputField from '../ReusableComponent/InputField';
+import Input from '../ReusableComponent/Input';
 
 const validationSchema = Yup.object().shape({
     users: Yup.array().of(
@@ -86,8 +87,22 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                     <div className='card-title'>{`Users ${index + 1}`}</div>
                                                                     <div className="card-body">
                                                                         <div className='row'>
-                                                                            <InputField common_name={`users.${index}.first_name`} title={'First Name'} />
-                                                                            <InputField common_name={`users.${index}.last_name`} title={'Last Name'} />
+                                                                            <div>
+                                                                                <Input formik={formik} value={users.first_name} common_name={`users.${index}.first_name`} title={'First Name'} />
+                                                                                <ErrorMessage
+                                                                                    component='span'
+                                                                                    className='field_error'
+                                                                                    name={`users.${index}.first_name`}
+                                                                                />
+                                                                            </div>
+                                                                            <div>
+                                                                                <Input formik={formik} value={users.last_name} common_name={`users.${index}.last_name`} title={'Last Name'} />
+                                                                                <ErrorMessage
+                                                                                    component='span'
+                                                                                    className='field_error'
+                                                                                    name={`users.${index}.last_name`}
+                                                                                />
+                                                                            </div>
                                                                         </div>
                                                                         <div className="from-group">
                                                                             <label htmlFor={`users.${index}.user_type`}>User Type</label> <br />
@@ -141,8 +156,22 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                             {
                                                                                 admin === "Admin" ?
                                                                                     <div>
-                                                                                        <InputField common_name={`users.${index}.division`} title={'Division'} />
-                                                                                        <InputField common_name={`users.${index}.district`} title={'District'} />
+                                                                                        <div>
+                                                                                            <Input formik={formik} value={users.division} common_name={`users.${index}.division`} title={'Division'} />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.division`}
+                                                                                            />
+                                                                                        </div>
+                                                                                        <div>
+                                                                                            <Input formik={formik} value={users.district} common_name={`users.${index}.district`} title={'District'} />
+                                                                                            <ErrorMessage
+                                                                                                component='span'
+                                                                                                className='field_error'
+                                                                                                name={`users.${index}.district`}
+                                                                                            />
+                                                                                        </div>
                                                                                     </div>
                                                                                     :
                                                                                     <div></div>
