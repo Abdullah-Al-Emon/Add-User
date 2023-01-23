@@ -1,25 +1,36 @@
+import { FieldArray, Form, Formik, useFormik } from 'formik';
 import React from 'react';
-import { Formik } from 'formik';
 
-const ExampleForm = () => (
-    <div>
-        <h1>Anywhere in your app!</h1>
+const ExampleForm = () =>
+{
+    const onSubmit = values =>
+    {
+        console.log(values)
+    }
+
+    // const formik = useFormik({ first_name: '', },
+    //     onSubmit,
+    // );
+    return (
         <Formik
-            initialValues={{ user: [{ email: '', password: '' }] }}
-            validate={values =>
+            initialValues={{
+                users: [{ firstName: '', }]
+            }}
+            validate={(values) =>
             {
                 const errors = {};
-                if (!values.email) {
-                    errors.email = 'Required';
-                } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                ) {
-                    errors.email = 'Invalid email address';
+                // console.log(errors)
+
+                if (!!values.firstName) {
+                    console.log('value')
+                    errors.firstName = 'Required';
                 }
+
                 return errors;
             }}
             onSubmit={(values, { setSubmitting }) =>
             {
+                console.log(values)
                 setTimeout(() =>
                 {
                     alert(JSON.stringify(values, null, 2));
@@ -27,44 +38,51 @@ const ExampleForm = () => (
                 }, 400);
             }}
         >
-            {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                isSubmitting,
-                /* and other goodies */
-            }) => (
-                <form onSubmit={handleSubmit}>
-                    {values?.user?.map((user, index) => (
-                        <div>
-                            <input
-                                type="email"
-                                name={`user.${index}.email`}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={user.email}
-                            />
-                            {errors.email && touched.email && errors.email}
-                            <input
-                                type="password"
-                                name={`user.${index}.password`}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={user.password}
-                            />
-                            {errors.password && touched.password && errors.password}
-                            <button type="submit" disabled={isSubmitting}>
-                                Submit
-                            </button>
-                        </div>
-                    ))}
-                </form>
+            {formik => (
+                <Form>
+                    <FieldArray
+                        name='users'
+                        render={
+                            (arrayHelpers) => 
+                            {
+                                return (
+                                    <div>
+                                        {
+                                            formik.values.users.map((users, index) => (
+                                                <div>
+                                                    <input
+                                                        type='text'
+                                                        id={`users.${index}.firstName`}
+                                                        name={`users.${index}.firstName`}
+                                                        onChange={formik.handleChange}
+                                                        onBlur={formik.handleBlur}
+                                                        value={users.firstName}
+                                                    />
+                                                    <div>
+                                                        {console.log(formik.touched.users)}
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                        <div>
+                                            <button type='button'
+                                                onClick={
+                                                    () => arrayHelpers.insert(formik.values.users.length + 1, { firstName: '' })
+                                                }
+                                            >
+                                                add
+                                            </button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        }
+                    />
+                    <button type="submit">Submit</button>
+                </Form>
             )}
         </Formik>
-    </div>
-);
+    );
+};
 
 export default ExampleForm;

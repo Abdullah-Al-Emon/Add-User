@@ -6,6 +6,8 @@ import BulkModal from '../BulkModal/BulkModal';
 import './Home.css'
 import Modal from '../Modal/Modal';
 import ExampleForm from '../ExampleForm';
+import MoreExxample from '../MoreExample';
+
 
 const Home = () =>
 {
@@ -60,7 +62,8 @@ const Home = () =>
                     </Tab>
                 </Tabs>
             </div>
-            {/* <ExampleForm/> */}
+            <ExampleForm/>
+            <MoreExxample/>
         </div>
     );
 };
