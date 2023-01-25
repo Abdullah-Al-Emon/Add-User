@@ -62,8 +62,8 @@ const Home = () =>
                     </Tab>
                 </Tabs>
             </div>
-            {/* <ExampleForm/> */}
-            {/* <MoreExxample/> */}
+            <ExampleForm/>
+            <MoreExxample/>
         </div>
     );
 };

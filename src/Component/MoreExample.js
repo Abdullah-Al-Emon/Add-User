@@ -46,62 +46,9 @@ const MoreExample = () =>
     return (
         <form onSubmit={formik.handleSubmit}>
             <Formik>
-                <Form>
-                    <FieldArray
-                        name='users'
-                        render={
-                            (arrayHelpers) => (
-                                <div>
-                                    {formik.values.users.map((value, index) => (
-                                        <div>
-                                            <div>
-                                                
-                                                <label htmlFor={`users.${index}.first_name`}>First Name</label>
-                                                <input type="text"
-                                                    name={`users.${index}.first_name`}
-                                                    id={`users.${index}.first_name`}
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={value.first_name}
-                                                />
-                                                {
-                                                    formik?.touched?.users?.map(vl => 
-                                                        (formik.errors.first_name && vl.first_name ? 
-                                                        <div>{formik.errors.first_name}</div> : null))
-                                                }
-                                            </div>
-                                            <div>
-                                                <label htmlFor={`users.${index}.last_name`}>Last Name</label>
-                                                <input type="text"
-                                                    name={`users.${index}.last_name`}
-                                                    id={`users.${index}.last_name`}
-                                                    onChange={formik.handleChange}
-                                                    onBlur={formik.handleBlur}
-                                                    value={value.last_name}
-                                                />
-                                                {
-                                                    formik?.touched?.users?.map(vl => 
-                                                        (formik.errors.last_name && vl.last_name ? 
-                                                        <div>{formik.errors.last_name}</div> : null))
-                                                }
-                                               
-                                            </div>
-                                        </div>
-                                    ))
-                                    }
-                                    <div>
-                                        <button type='button' onClick={
-                                                () => arrayHelpers.push(formik?.values?.users?.length + 1, {first_name: '', last_name: ''})
-                                            } >Add</button>
-                                        {/* {console.log(formik.values.users)} */}
-                                    </div>
-                                </div>
-                            )
-                        }
-                    />
-                </Form>
+                
+                <button type="submit">Submit</button>
             </Formik>
-            <button type="submit">Submit</button>
         </form>
     );
 };

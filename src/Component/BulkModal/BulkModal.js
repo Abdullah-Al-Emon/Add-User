@@ -1,6 +1,6 @@
 import { Form, FieldArray, Formik } from 'formik'
 import React, { useState } from 'react';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 import { City, State } from 'country-state-city';
 import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
@@ -45,7 +45,6 @@ import ErrorMessage from '../ReusableComponent/ErrorMessage';
 
 const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
 {
-
     const [employee, setEmployee] = useState('')
     const [admin, setAdmin] = useState('')
 
@@ -92,37 +91,77 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                         initialValues={{
                             users: [{ first_name: '', last_name: '', user_type: ``, division: '', district: '' }]
                         }}
-                        // validationSchema={validationSchema}
+                        // validationSchema={validationSchema} 
+                        onSubmit={handleSubmit}
                         validate={(value) =>
                         {
-                            const errors = {};
-                            value?.users?.map(er =>
-                            {
-                                if (!er?.first_name) {
-                                    errors.first_name = 'Type Your First Name'
-                                }
-                                if (!er.last_name) {
-                                    errors.last_name = 'Type your last name'
-                                }
-                                if (!er.user_type) {
-                                    errors.user_type = 'select your user type'
-                                }
-                                if (!er.division) {
-                                    errors.division = 'Select your division'
-                                }
-                                if (!er.district) {
-                                    errors.district = 'Select your district'
-                                }
-                            })
+                            // const errors = [];
+                            // // const length = 
+                            // value?.users?.map((er, i) =>
+                            // {
+                            //     // console.log(er, i)
+                            //     if (!value?.users[i]?.first_name) {
+                            //         // console.log('value')
+                            //         // value.users.errors.first_name = 'Type Your First Name'
+                            //         // errors[i].first_name = 'type'
+                            //         errors.push({first_name: 'type'})
+                            //     }
+                            // })
+                            // // console.log(value)
+                            // console.log(errors)
+                            // return errors
 
-                            // if (!value.first_name) {
-                            //     console.log('validation')
-                            //     errors.first_name = 'Type your first name'
-                            // }
-                            // console.log(value)
+                            // let errors = {
+                            //     users: []
+                            // };
+                            let errors = []
+
+                            if (value.users.length > 0) {
+                                value.users.map((er, i) =>
+                                {
+                                    const error = {};
+                                    if (!er.first_name) {
+                                        error.first_name = 'Type Your First Name'
+                                        errors.push(error)
+                                    }
+                                    if (!er.last_name) {
+                                        error.last_name = 'Type Your last Name'
+                                        errors.push(error)
+                                    }
+                                    if (!er.user_type) {
+                                        error.user_type = 'Type Your User Type'
+                                        errors.push(error)
+                                    }
+                                    if (!er.division) {
+                                        error.division = 'Type Your Division'
+                                        errors.push(error)
+                                    }
+                                    if (!er.district) {
+                                        error.district = 'Type Your District'
+                                        errors.push(error)
+                                    }
+                                })
+                            }
+                            console.log(errors)
+
                             return errors
+                            // if (!value?.users[i]?.first_name) {
+                            //     error.first_name = 'Type Your First Name'
+                            //     errors.push(error)
+                            // }
+                            // if (!value?.users[i]?.last_name) {
+                            //     error.last_name = 'Type Your last Name'
+                            //     errors.push(error)
+                            // }
+                            // if (!er.last_name) {
+                            //     error.last_name = 'Type Your last Name'
+                            // }
+                            // if(value?.users[i]?.first_name){
+                            //     errors = []
+                            // }
+                            // errors.users.push(error)
+
                         }}
-                        onSubmit={handleSubmit}
                     >
                         {(formik) => (
                             <Form>
@@ -140,21 +179,29 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                     <div className='row'>
                                                                         <div>
                                                                             <Input formik={formik} value={users?.first_name} common_name={`users.${index}.first_name`} title={'First Name'} />
+
                                                                             {
-                                                                                formik?.touched?.users?.map(vl => (formik.errors?.first_name && vl?.first_name ? <ErrorMessage message={formik?.errors?.first_name} /> : null))
+                                                                                formik?.errors[index]?.first_name &&
+                                                                                    (!formik?.values?.users[index]?.first_name) &&
+                                                                                    formik?.touched?.users[index]?.first_name ?
+                                                                                    <ErrorMessage message={formik?.errors[index]?.first_name} /> : null
                                                                             }
+                                                                            {/* {
+                                                                                console.log(formik?.errors)
+                                                                            } */}
                                                                             {/* <ErrorMessage
                                                                                 component='span'
                                                                                 className='field_error'
                                                                                 name={`users.${index}.first_name`}
                                                                             /> */}
-                                                                            {/* {console.log(formik.errors.first_name)} */}
-                                                                            {/* {console.log(formik.touched.users)} */}
                                                                         </div>
                                                                         <div>
                                                                             <Input formik={formik} value={users.last_name} common_name={`users.${index}.last_name`} title={'Last Name'} />
                                                                             {
-                                                                                formik?.touched?.users?.map(vl => (formik.errors?.last_name && vl?.last_name ? <ErrorMessage message={formik?.errors?.last_name} /> : null))
+                                                                                formik?.errors[index]?.last_name &&
+                                                                                    formik?.touched?.users[index]?.last_name &&
+                                                                                    (!formik?.values?.users[index]?.last_name) ?
+                                                                                    <ErrorMessage message={formik?.errors[index]?.last_name} /> : null
                                                                             }
                                                                             {/* <ErrorMessage
                                                                                 component='span'
@@ -177,7 +224,10 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                             <option value="Admin">Admin</option>
                                                                         </select> <br />
                                                                         {
-                                                                            formik?.touched?.users?.map(vl => (formik.errors?.user_type && vl?.user_type ? <ErrorMessage message={formik?.errors?.user_type} /> : null))
+                                                                            formik?.errors[index]?.user_type &&
+                                                                                (!formik?.values?.users[index]?.user_type) &&
+                                                                                formik?.touched?.users[index]?.user_type ?
+                                                                                <ErrorMessage message={formik?.errors[index]?.user_type} /> : null
                                                                         }
                                                                         {/* <ErrorMessage
                                                                             component='span'
@@ -204,7 +254,10 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                             }
                                                                                         </select> <br />
                                                                                         {
-                                                                                            formik?.touched?.users?.map(vl => (formik.errors?.division && vl?.division ? <ErrorMessage message={formik?.errors?.division} /> : null))
+                                                                                            formik?.errors[index]?.division &&
+                                                                                                (!formik?.values?.users[index]?.division) &&
+                                                                                                formik?.touched?.users[index]?.division ?
+                                                                                                <ErrorMessage message={formik?.errors[index]?.division} /> : null
                                                                                         }
                                                                                         {/* <ErrorMessage
                                                                                             component='span'
@@ -227,7 +280,10 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                             }
                                                                                         </select> <br />
                                                                                         {
-                                                                                            formik?.touched?.users?.map(vl => (formik.errors?.district && vl?.district ? <ErrorMessage message={formik?.errors?.district} /> : null))
+                                                                                            formik?.errors[index]?.district &&
+                                                                                                (!formik?.values?.users[index]?.district) &&
+                                                                                                formik?.touched?.users[index]?.district ?
+                                                                                                <ErrorMessage message={formik?.errors[index]?.district} /> : null
                                                                                         }
                                                                                         {/* <ErrorMessage
                                                                                             component='span'
@@ -245,7 +301,10 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                     <div>
                                                                                         <Input formik={formik} value={users.division} common_name={`users.${index}.division`} title={'Division'} />
                                                                                         {
-                                                                                            formik?.touched?.users?.map(vl => (formik.errors?.division && vl?.division ? <ErrorMessage message={formik?.errors?.division} /> : null))
+                                                                                            formik?.errors[index]?.division &&
+                                                                                                (!formik?.values?.users[index]?.division) &&
+                                                                                                formik?.touched?.users[index]?.division ?
+                                                                                                <ErrorMessage message={formik?.errors[index]?.division} /> : null
                                                                                         }
                                                                                         {/* <ErrorMessage
                                                                                             component='span'
@@ -256,7 +315,10 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                                     <div>
                                                                                         <Input formik={formik} value={users.district} common_name={`users.${index}.district`} title={'District'} />
                                                                                         {
-                                                                                            formik?.touched?.users?.map(vl => (formik.errors?.district && vl?.district ? <ErrorMessage message={formik?.errors?.district} /> : null))
+                                                                                            formik?.errors[index]?.district &&
+                                                                                                (!formik?.values?.users[index]?.district) &&
+                                                                                                formik?.touched?.users[index]?.district ?
+                                                                                                <ErrorMessage message={formik?.errors[index]?.district} /> : null
                                                                                         }
                                                                                         {/* <ErrorMessage
                                                                                             component='span'
