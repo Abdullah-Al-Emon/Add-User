@@ -1,6 +1,5 @@
 import { Form, FieldArray, Formik } from 'formik'
 import React, { useState } from 'react';
-import * as Yup from 'yup';
 import { City, State } from 'country-state-city';
 import Option from '../ReusableComponent/Option';
 import './BulkModal.css'
@@ -110,10 +109,8 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                             // // console.log(value)
                             // console.log(errors)
                             // return errors
+                            // console.log(value)
 
-                            // let errors = {
-                            //     users: []
-                            // };
                             let errors = []
 
                             if (value.users.length > 0) {
@@ -145,21 +142,29 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                             console.log(errors)
 
                             return errors
-                            // if (!value?.users[i]?.first_name) {
-                            //     error.first_name = 'Type Your First Name'
-                            //     errors.push(error)
+
+                            // let errors = {
+                            //     users: []
+                            // };
+
+                            // if (value.users.length > 0) {
+                            //     value?.users?.map((er, i) =>
+                            //     {
+                            //         const error = {}
+
+                            //         if (!value?.users[i]?.first_name) {
+                            //             error.first_name = 'Type Your First Name'
+                            //             errors.users.push(error)
+                            //         }
+                            //         if (!value?.users[i]?.last_name) {
+                            //             error.last_name = 'Type Your last Name'
+                            //             // errors.push(error)
+                            //         }
+                            //         // errors.users.push(error)
+                            //     })
+                            //     console.log(errors)
                             // }
-                            // if (!value?.users[i]?.last_name) {
-                            //     error.last_name = 'Type Your last Name'
-                            //     errors.push(error)
-                            // }
-                            // if (!er.last_name) {
-                            //     error.last_name = 'Type Your last Name'
-                            // }
-                            // if(value?.users[i]?.first_name){
-                            //     errors = []
-                            // }
-                            // errors.users.push(error)
+                            // return errors;
 
                         }}
                     >
@@ -181,10 +186,13 @@ const BulkModal = ({ toggleBulkModal, setBulkModal, bulkModal }) =>
                                                                             <Input formik={formik} value={users?.first_name} common_name={`users.${index}.first_name`} title={'First Name'} />
 
                                                                             {
-                                                                                formik?.errors[index]?.first_name &&
-                                                                                    (!formik?.values?.users[index]?.first_name) &&
-                                                                                    formik?.touched?.users[index]?.first_name ?
-                                                                                    <ErrorMessage message={formik?.errors[index]?.first_name} /> : null
+                                                                                // formik?.errors?.users?.map((er, i) => (
+                                                                                //     ))
+                                                                                    (formik?.touched?.users &&
+                                                                                        formik?.errors[index]?.first_name &&
+                                                                                        (!formik?.values?.users[index]?.first_name) &&
+                                                                                        formik?.touched?.users[index]?.first_name ?
+                                                                                        <ErrorMessage message={formik?.errors[index]?.first_name} /> : null)
                                                                             }
                                                                             {/* {
                                                                                 console.log(formik?.errors)
